@@ -10,7 +10,6 @@ GO
 
 
 CREATE PROCEDURE [dbo].[CMP_AddContact]
-	@ContactId INT,
 	@FirstName VARCHAR(100),
 	@LastName VARCHAR(100),
 	@PhoneNumber VARCHAR(15),

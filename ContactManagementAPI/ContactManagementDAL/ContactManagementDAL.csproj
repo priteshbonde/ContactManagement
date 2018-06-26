@@ -53,6 +53,8 @@
   <ItemGroup>
     <Content Include="SQLScripts\CMP_AddContact.sql" />
     <Content Include="SQLScripts\CMP_GetContactList.sql" />
+    <Content Include="SQLScripts\CMP_UpdateContact.sql" />
+    <Content Include="SQLScripts\CMP_UpdateContactStatus.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

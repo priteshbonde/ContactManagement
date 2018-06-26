@@ -60,7 +60,6 @@ namespace ContactManagementDAL.Implementation
                     while (oReader.Read())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@ContactID", contact.ContactID));
                         cmd.Parameters.Add(new SqlParameter("@FirstName", contact.FirstName));
                         cmd.Parameters.Add(new SqlParameter("@LastName", contact.LastName));
                         cmd.Parameters.Add(new SqlParameter("@Email", contact.Email));
@@ -78,6 +77,58 @@ namespace ContactManagementDAL.Implementation
                 }
             }
             return newContactId;
+        }
+
+        public bool UpdateContact(Contact contact)
+        {
+            int contactRowsUpdated = 0;
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("CMP_UpdateContact", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader oReader = cmd.ExecuteReader();
+                    while (oReader.Read())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@ContactID", contact.ContactID));
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", contact.FirstName));
+                        cmd.Parameters.Add(new SqlParameter("@LastName", contact.LastName));
+                        cmd.Parameters.Add(new SqlParameter("@Email", contact.Email));
+                        cmd.Parameters.Add(new SqlParameter("@PhoneNumber", contact.PhoneNumber));
+                        cmd.Parameters.Add(new SqlParameter("@Status", contact.Status));
+                        cmd.Parameters.Add(new SqlParameter("@UpdatedDate", DateTime.Now));
+                        contactRowsUpdated = cmd.ExecuteNonQuery();
+                        
+                    }
+                    oReader.Close();
+                }
+            }
+            return contactRowsUpdated==0;
+        }
+
+        public bool UpdateContactStatus(int contactId,bool newStatus)
+        {
+            int contactRowsUpdated = 0;
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("CMP_UpdateContactStatus", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader oReader = cmd.ExecuteReader();
+                    while (oReader.Read())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@ContactID", contactId));
+                        cmd.Parameters.Add(new SqlParameter("@Status", newStatus));
+                        contactRowsUpdated = cmd.ExecuteNonQuery();
+                    }
+                    oReader.Close();
+                }
+            }
+            return contactRowsUpdated == 0;
         }
     }
 }

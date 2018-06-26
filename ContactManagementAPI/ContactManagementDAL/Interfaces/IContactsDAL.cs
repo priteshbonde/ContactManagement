@@ -11,5 +11,7 @@ namespace ContactManagementDAL
     {
         List<Contact> GetList();
         int AddContact(Contact contact);
+        bool UpdateContact(Contact contact);
+        bool UpdateContactStatus(int contactId, bool newStatus);
     }
 }

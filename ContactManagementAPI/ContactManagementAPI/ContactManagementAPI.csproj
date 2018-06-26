@@ -228,6 +228,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -313,6 +314,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactManagementDAL\ContactManagementDAL.csproj">
+      <Project>{d33ea813-d130-4660-b9e9-e03f071e1967}</Project>
+      <Name>ContactManagementDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactManagementEntities\ContactManagementEntities.csproj">
+      <Project>{2e95475b-5956-441f-804f-ba31ac124d89}</Project>
+      <Name>ContactManagementEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
