@@ -23,11 +23,8 @@ namespace ContactManagementEntities
         [Required]
         [MaxLength(10)]
         public string PhoneNumber { get; set; }
-
         public bool Status { get; set; }
-
         public DateTime? UpdatedDate { get; set; }
-
         public DateTime CreatedDate { get; set; }
     }
 }

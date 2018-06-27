@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ContactManagementDAL;
+using ContactManagementEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,34 +11,46 @@ namespace ContactManagementAPI.Controllers
 {
     public class ContactController : ApiController
     {
+        readonly IContactsDAL _ContactsDAL;
+        public ContactController(IContactsDAL contactsDAL)
+        {
+            _ContactsDAL = contactsDAL;
+        }
         // GET: api/Contact
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Contact> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _ContactsDAL.GetList();
         }
 
         // GET: api/Contact/5
         [HttpGet]
-        public string Get(int id)
+        public Contact Get(int id)
         {
-            return "value";
+            return _ContactsDAL.GetContact(id);
         }
 
         // POST: api/Contact
         [HttpPost]
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(Contact value)
         {
+            if (ModelState.IsValid)
+            {
+                _ContactsDAL.UpdateContact(value);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
         }
-        [HttpPut]
-        // PUT: api/Contact/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        [HttpDelete]
+      
+        [HttpPost]
         // DELETE: api/Contact/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id, bool newStatus)
         {
+                _ContactsDAL.UpdateContactStatus(id, newStatus);
+                return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

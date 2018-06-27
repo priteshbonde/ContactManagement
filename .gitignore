@@ -3,3 +3,9 @@
 ################################################################################
 
 /ContactManagementAPI/ContactManagementAPI/bin
+/ContactManagementAPI/ContactManagementAPI/obj/Debug
+/ContactManagementAPI/ContactManagementDAL/obj/Debug
+/ContactManagementAPI/ContactManagementEntities/obj/Debug
+/ContactManagementAPI/ContactManagementDAL/bin/Debug
+/ContactManagementAPI/ContactManagementEntities/bin/Debug
+/ContactManagementAPI/packages

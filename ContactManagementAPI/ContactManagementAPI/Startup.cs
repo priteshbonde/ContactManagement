@@ -13,6 +13,8 @@ namespace ContactManagementAPI
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            //app.UseNinjectMiddleware(CreateKernel);
+            //app.UseNinjectWebApi(webApiConfiguration);
         }
     }
 }

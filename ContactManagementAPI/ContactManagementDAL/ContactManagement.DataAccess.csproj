@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,9 +46,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContactManagementEntities\ContactManagementEntities.csproj">
+    <ProjectReference Include="..\ContactManagementEntities\ContactManagement.Connector.csproj">
       <Project>{2e95475b-5956-441f-804f-ba31ac124d89}</Project>
-      <Name>ContactManagementEntities</Name>
+      <Name>ContactManagement.Connector</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

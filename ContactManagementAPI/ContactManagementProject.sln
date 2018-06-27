@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManagementAPI", "ContactManagementAPI\ContactManagementAPI.csproj", "{08EE692E-B0C1-4090-B660-97458705947C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManagement.API", "ContactManagementAPI\ContactManagement.API.csproj", "{08EE692E-B0C1-4090-B660-97458705947C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManagementDAL", "ContactManagementDAL\ContactManagementDAL.csproj", "{D33EA813-D130-4660-B9E9-E03F071E1967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManagement.DataAccess", "ContactManagementDAL\ContactManagement.DataAccess.csproj", "{D33EA813-D130-4660-B9E9-E03F071E1967}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManagementEntities", "ContactManagementEntities\ContactManagementEntities.csproj", "{2E95475B-5956-441F-804F-BA31AC124D89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManagement.Connector", "ContactManagementEntities\ContactManagement.Connector.csproj", "{2E95475B-5956-441F-804F-BA31AC124D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

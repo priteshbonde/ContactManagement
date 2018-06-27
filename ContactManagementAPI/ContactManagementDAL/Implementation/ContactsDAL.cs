@@ -1,6 +1,7 @@
 ﻿using ContactManagementEntities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace ContactManagementDAL.Implementation
         string _connectionString;
         
 
-        public ContactsDAL(string connectionString)
+        public ContactsDAL()
         {
-            _connectionString = connectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["ContactManagement"].ToString();
         }
         public List<Contact> GetList()
         {
@@ -32,7 +33,7 @@ namespace ContactManagementDAL.Implementation
                     {
                         Contact data = new Contact
                         {
-                            ContactID = oReader.GetInt32(oReader.GetOrdinal("ContactID")),
+                            ContactID = oReader.GetInt64(oReader.GetOrdinal("ContactID")),
                             FirstName = oReader.GetString(oReader.GetOrdinal("FirstName")),
                             LastName = oReader.GetString(oReader.GetOrdinal("LastName")),
                             Email = oReader.GetString(oReader.GetOrdinal("Email")),
@@ -45,6 +46,34 @@ namespace ContactManagementDAL.Implementation
                 }
             }
             return lstContacts;
+        }
+
+        public Contact GetContact(int contactId)
+        {
+            Contact contact = new Contact();
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("CMP_GetContact", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@ContactId", contactId));
+                    SqlDataReader oReader = cmd.ExecuteReader();
+                    while (oReader.Read())
+                    {
+
+                        contact.ContactID = oReader.GetInt64(oReader.GetOrdinal("ContactID"));
+                          contact.FirstName = oReader.GetString(oReader.GetOrdinal("FirstName"));
+                          contact.LastName = oReader.GetString(oReader.GetOrdinal("LastName"));
+                          contact.Email = oReader.GetString(oReader.GetOrdinal("Email"));
+                          contact.PhoneNumber = oReader.GetString(oReader.GetOrdinal("PhoneNumber"));
+                        contact.Status = oReader.GetBoolean(oReader.GetOrdinal("Status"));
+                        
+                    }
+                    oReader.Close();
+                }
+            }
+            return contact;
         }
 
         public int AddContact(Contact contact)
