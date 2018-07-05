@@ -1,4 +1,5 @@
-﻿using ContactManagementDAL;
+﻿using ContactManagementAPI.Filters;
+using ContactManagementDAL;
 using ContactManagementEntities;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ContactManagementAPI.Controllers
 {
+    //[CustomException]
+    [EnableCors("*","*","*")]
     public class ContactController : ApiController
     {
         readonly IContactsDAL _ContactsDAL;
@@ -36,7 +40,10 @@ namespace ContactManagementAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _ContactsDAL.UpdateContact(value);
+                if (value.ContactID == 0)
+                    _ContactsDAL.AddContact(value);
+                else
+                    _ContactsDAL.UpdateContact(value);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             else
@@ -44,12 +51,11 @@ namespace ContactManagementAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
-      
-        [HttpPost]
+      [HttpPost]
         // DELETE: api/Contact/5
-        public HttpResponseMessage Delete(int id, bool newStatus)
+        public HttpResponseMessage Delete(int id)
         {
-                _ContactsDAL.UpdateContactStatus(id, newStatus);
+                _ContactsDAL.UpdateContactStatus(id);
                 return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }

@@ -10,18 +10,21 @@ GO
 
 
 CREATE PROCEDURE [dbo].[CMP_UpdateContactStatus]
-	@ContactID INT,
-	@Status BIT
+	@ContactID INT
+	
 	
 AS	
 	
 BEGIN
 	
 	SET NOCOUNT ON;
+	
+	DECLARE @Status BIT;
 
+	SELECT @status=Status from [dbo].[Contact] WHERE ContactID=@ContactID
 UPDATE [dbo].[Contact]
 	SET 
-      [Status] = @Status
+      [Status] =  ~@Status
       WHERE ContactID=@ContactID
 
 		

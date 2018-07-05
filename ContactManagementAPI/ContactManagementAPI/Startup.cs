@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
+
 [assembly: OwinStartup(typeof(ContactManagementAPI.Startup))]
 
 namespace ContactManagementAPI
@@ -13,6 +14,7 @@ namespace ContactManagementAPI
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            
             //app.UseNinjectMiddleware(CreateKernel);
             //app.UseNinjectWebApi(webApiConfiguration);
         }

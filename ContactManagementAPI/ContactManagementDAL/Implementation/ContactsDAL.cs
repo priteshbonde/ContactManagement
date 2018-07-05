@@ -85,9 +85,7 @@ namespace ContactManagementDAL.Implementation
                 using (SqlCommand cmd = new SqlCommand("CMP_AddContact", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader oReader = cmd.ExecuteReader();
-                    while (oReader.Read())
-                    {
+                    
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@FirstName", contact.FirstName));
                         cmd.Parameters.Add(new SqlParameter("@LastName", contact.LastName));
@@ -101,8 +99,7 @@ namespace ContactManagementDAL.Implementation
                         {
                             newContactId = Convert.ToInt32(result);
                         }
-                    }
-                    oReader.Close();
+                    
                 }
             }
             return newContactId;
@@ -117,9 +114,7 @@ namespace ContactManagementDAL.Implementation
                 using (SqlCommand cmd = new SqlCommand("CMP_UpdateContact", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader oReader = cmd.ExecuteReader();
-                    while (oReader.Read())
-                    {
+                    
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@ContactID", contact.ContactID));
                         cmd.Parameters.Add(new SqlParameter("@FirstName", contact.FirstName));
@@ -130,14 +125,13 @@ namespace ContactManagementDAL.Implementation
                         cmd.Parameters.Add(new SqlParameter("@UpdatedDate", DateTime.Now));
                         contactRowsUpdated = cmd.ExecuteNonQuery();
                         
-                    }
-                    oReader.Close();
+                   
                 }
             }
             return contactRowsUpdated==0;
         }
 
-        public bool UpdateContactStatus(int contactId,bool newStatus)
+        public bool UpdateContactStatus(int contactId)
         {
             int contactRowsUpdated = 0;
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -146,15 +140,12 @@ namespace ContactManagementDAL.Implementation
                 using (SqlCommand cmd = new SqlCommand("CMP_UpdateContactStatus", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader oReader = cmd.ExecuteReader();
-                    while (oReader.Read())
-                    {
+                   
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@ContactID", contactId));
-                        cmd.Parameters.Add(new SqlParameter("@Status", newStatus));
+                        //cmd.Parameters.Add(new SqlParameter("@Status", newStatus));
                         contactRowsUpdated = cmd.ExecuteNonQuery();
-                    }
-                    oReader.Close();
+                   
                 }
             }
             return contactRowsUpdated == 0;

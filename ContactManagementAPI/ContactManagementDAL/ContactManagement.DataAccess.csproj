@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\ContactsDAL.cs" />
+    <Compile Include="Implementation\Logger.cs" />
     <Compile Include="Interfaces\IContactsDAL.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQLScripts\CMP_AddContact.sql" />
+    <Content Include="SQLScripts\CMP_CreateExceptionLog.sql" />
     <Content Include="SQLScripts\CMP_GetContactList.sql" />
     <Content Include="SQLScripts\CMP_UpdateContact.sql" />
     <Content Include="SQLScripts\CMP_UpdateContactStatus.sql" />

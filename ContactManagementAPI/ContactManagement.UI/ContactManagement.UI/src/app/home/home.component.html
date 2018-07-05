@@ -1,0 +1,161 @@
+        <section id="container">
+
+          <section id="main-content">
+            <section class="wrapper">
+              <div class="row mt">
+                <div class="col-md-12">
+                  <div class="content-panel">
+                    <div class="col-md-12">
+                      <h2> <strong>Products</strong></h2>
+                    </div>
+                    <div class="col-md-12">
+                      <label>Search: </label>
+                      <input type="text" value="" placeholder="Search" [(ngModel)]="searchString">
+                      <span class="icon-input-btn pull-right">
+
+                        <a class="btn btn-default btn-xs btn-info addEmployee" (click)="onAddPatientClick()">
+                          <span class="glyphicon glyphicon-plus"></span>
+                          Add Contact
+                        </a>
+                      </span>
+                      <hr />
+                    </div>
+
+                    <table class="table table-striped table-advance table-hover">
+                      <thead>
+                        <tr>
+                          <th><i class="fa fa-building"></i>Contact Id</th>
+                          <th><i class="fa  fa-building"></i>Contact Name</th>
+                          <th><i class="fa  fa-building"></i>Email</th>
+                          <th><i class="fa fa-building"></i>PhoneNumber</th>
+                          <th><i class="fa fa-building"></i>Active</th>
+                          <th><i class=" fa fa-edit"></i>Actions</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let patient of contacts  | filter :'FirstName,LastName,Email': searchString | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                          <td>{{patient.ContactID}}</td>
+                          <td>{{patient.FirstName + " " + patient.LastName}}</td>
+                          <td class="hidden-phone">{{patient.Email}}</td>
+                          <td>{{patient.PhoneNumber}}</td>
+                          <td>{{patient.Status}}</td>
+                          <td>
+                            <button class="btn btn-primary btn-xs" title="Edit Contact" (click)="onEditPatientClick(patient)" ><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-warning btn-xs" title="Change Contact Status" (click)="onChangeStatusClick(patient.ContactID)"><i class="fa fa-times-circle"></i></button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="!contacts">Loading patients Please wait...</tr>
+                        <tr *ngIf="contacts && contacts.length==0">No patients found</tr>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                      </tbody>
+                      <span class="pull-right" *ngIf="contacts && contacts.length!=0">
+                        Patients per Page
+                        <select [(ngModel)]="itemsPerPage">
+                          <option value="5">
+                            5
+                          </option>
+                          <option value="10">
+                            10
+                          </option>
+                          <option value="15">
+                            15
+                          </option>
+                          <option value="50">
+                            50
+                          </option>
+                          <option value="100">
+                            100
+                          </option>
+                        </select>
+                      </span>
+                    </table>
+
+                  </div><!-- /content-panel -->
+                </div><!-- /col-md-12 -->
+              </div>
+            </section>
+          </section>
+       <!--   <ng-template #content let-c="close" let-d="dismiss">-->
+            <div class="modal fade" id="modal-default" #modaldefault *ngIf="!IsPopupVisible">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">{{ModalTitle}}</h4>
+                  </div>
+                  <form #productForm="ngForm" (ngSubmit)="savePatient()">
+                    <div class="modal-body">
+                      <div class="form-horizontal">
+                        <div class="form-group ">
+                          <label class="control-label col-md-3 pull-left">Contact ID</label>
+                          <div class="col-md-9">
+                            <label class="form-control col-md-12">{{contact.ContactID}}</label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 pull-left">First Name</label>
+                          <div class="col-md-9">
+                            <input type="text" class="form-control" name="FirstName" placeholder="First Name" required [(ngModel)]="contact.FirstName" maxlength="40" #FirstName>
+                            <div class="alert alert-danger" *ngIf="FirstName.dirty || FirstName.touched">
+                              <div *ngIf="FirstName.errors.required">
+                                <span>Patient Name is required field</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 pull-left">Last Name</label>
+                          <div class="col-md-9">
+                            <input type="text" class="form-control" name="LastName" placeholder="Last Name" required [(ngModel)]="contact.LastName" maxlength="40" #LastName>
+                            <div class="alert alert-danger" *ngIf="LastName.dirty || LastName.touched">
+                              <div *ngIf="LastName.errors.required">
+                                <span>LastName is required field</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label col-md-3 pull-left">Email</label>
+                          <div class="col-md-9">
+                            <input type="text" class="form-control" name="Email" placeholder="abc@xyz.com" required [(ngModel)]="contact.Email" maxlength="40" #Email email="true">
+                            <div class="alert alert-danger" *ngIf="Email.dirty || Email.touched">
+                              <div *ngIf="Email.errors.email">
+                                <span>Please enter valid email id</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 pull-left">PhoneNumber</label>
+                          <div class="col-md-9">
+                            <input type="text" class="form-control" name="PhoneNumber" placeholder="1234567890" required [(ngModel)]="contact.PhoneNumber" maxlength="10" #PhoneNumber pattern="[0-9]+" minlength="10">
+                            <div class="alert alert-danger" *ngIf="PhoneNumber.dirty || PhoneNumber.touched">
+                              <div *ngIf="PhoneNumber.errors.required">
+                                <span>Phone Number is required field</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 pull-left">Status</label>
+                          <div class="col-md-9">
+                            <input type="checkbox" name="gender" [(ngModel)]="contact.Status">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Save changes</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <!--</ng-template>-->
+</section>
