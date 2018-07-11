@@ -148,7 +148,7 @@ namespace ContactManagementDAL.Implementation
                    
                 }
             }
-            return contactRowsUpdated == 0;
+            return contactRowsUpdated > 0;
         }
     }
 }

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Contact Management System</h2>
+            </div>
+        </div>
+    </div>
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-md-12">
+                    <div class="content-panel">
+                        <div class="col-md-12">
+                            <h2> <strong>Contacts</strong></h2>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Search: </label>
+                            <input type="text" value="" placeholder="Search"id="txtSearch">
+                            <span class="icon-input-btn">
+                                <a class="btn btn-default btn-xs btn-info addEmployee"  onclick="onSearchClick()">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <!--Search-->
+                                </a>
+                            </span>
+                            <span class="icon-input-btn pull-right">
+
+                                <a class="btn btn-default btn-xs btn-info addEmployee" data-toggle="modal" data-target="#modal-default" (click)="onAddPatientClick()">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    Add Contact
+                                </a>
+                            </span>
+                            <hr />
+                        </div>
+
+                        <table id="contactsTable" class="table table-striped table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-building"></i>Contact Id</th>
+                                    <th><i class="fa  fa-building"></i>Contact Name</th>
+                                    <th><i class="fa  fa-building"></i>Email</th>
+                                    <th><i class="fa fa-building"></i>PhoneNumber</th>
+                                    <th><i class="fa fa-building"></i>Active</th>
+                                    <th><i class=" fa fa-edit"></i>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div><!-- /content-panel -->
+                </div><!-- /col-md-12 -->
+            </div>
+        </section>
+        <div class="modal fade" id="modal-default" #modaldefault *ngIf="!IsPopupVisible">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Add Contact</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group ">
+                                <label class="control-label col-md-3 pull-left">Contact ID</label>
+                                <div class="col-md-9">
+                                    <label class="form-control col-md-12" id="contactId">0</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 pull-left">First Name</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="FirstName" placeholder="First Name" required maxlength="40" id="FirstName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 pull-left">Last Name</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="LastName" placeholder="Last Name" required [(ngModel)]="contact.LastName" maxlength="40" id="LastName">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 pull-left">Email</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="Email" placeholder="abc@xyz.com" required maxlength="40" id="Email" email="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 pull-left">PhoneNumber</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="PhoneNumber" placeholder="1234567890" required maxlength="10" id="PhoneNumber" pattern="[0-9]+" minlength="10">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 pull-left">Status</label>
+                                <div class="col-md-9">
+                                    <input type="checkbox" name="gender" id="Status" value="false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="updateClick()">Save changes</button>
+                        </div>
+                    </div>
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <!--<script src="assets/js/bootstrap.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="assets/Custom.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            contactList();
+        })
+    </script>
+</body>
+</html>

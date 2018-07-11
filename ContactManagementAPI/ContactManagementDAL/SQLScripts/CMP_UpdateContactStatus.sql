@@ -17,7 +17,7 @@ AS
 	
 BEGIN
 	
-	SET NOCOUNT ON;
+	SET NOCOUNT OFF;
 	
 	DECLARE @Status BIT;
 

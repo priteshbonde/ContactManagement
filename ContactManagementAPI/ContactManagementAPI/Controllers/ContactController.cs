@@ -34,6 +34,15 @@ namespace ContactManagementAPI.Controllers
             return _ContactsDAL.GetContact(id);
         }
 
+        [HttpGet]
+        public IEnumerable<Contact> Get(string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+                return _ContactsDAL.GetList().Where(t => t.FirstName.ToUpper().Contains(searchString.ToUpper())
+                        || t.LastName.ToUpper().Contains(searchString.ToUpper()));
+            else
+                return _ContactsDAL.GetList();
+        }
         // POST: api/Contact
         [HttpPost]
         public HttpResponseMessage Post(Contact value)
@@ -41,10 +50,13 @@ namespace ContactManagementAPI.Controllers
             if (ModelState.IsValid)
             {
                 if (value.ContactID == 0)
-                    _ContactsDAL.AddContact(value);
+                {
+                   int contactId=  _ContactsDAL.AddContact(value);
+                    value.ContactID = contactId;
+                }
                 else
                     _ContactsDAL.UpdateContact(value);
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK,value);
             }
             else
             {
@@ -55,8 +67,15 @@ namespace ContactManagementAPI.Controllers
         // DELETE: api/Contact/5
         public HttpResponseMessage Delete(int id)
         {
-                _ContactsDAL.UpdateContactStatus(id);
-                return new HttpResponseMessage(HttpStatusCode.OK);
+            if (_ContactsDAL.UpdateContactStatus(id))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, id);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Invalid Request");
+            }
+                
         }
     }
 }
